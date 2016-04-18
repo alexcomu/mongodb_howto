@@ -34,3 +34,5 @@ service mongod restart
 A replica set in **MongoDB** is a group of mongod processes that maintain the same data set. Replica sets provide redundancy and high availability, and are the basis for all production deployments. This section provides tutorials for common tasks related to replica sets.
 
 ## Requirements
+
+Before you can deploy a replica set, you must install MongoDB on each system that will be part of your replica set. If you have not already installed MongoDB, see the [instllation tutorials](https://docs.mongodb.org/manual/installation/#tutorial-installation "Installation").
