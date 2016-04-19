@@ -46,19 +46,93 @@ To configure the network bind edit the mongo config file (/etc/mongod.conf under
         port: 27017
         bindIp: PRIVATE-IP
 
-So, to check the bidirectional test of networking try from **node1**:
+Be sure to setup internal DNS name to reach all the different nodes from one virtual machine to an other. You can simply modify the **/etc/hosts** file and add your DNS resolution, for example:
 
-    `mongo --host node2.com --port 27017`
-    `mongo --host node3.com --port 27017`
+    192.168.0.1     mongo1.alexcomu
+    192.168.0.2     mongo2.alexcomu
+    192.168.0.3     mongo3.alexcomu
 
-From **node2**:
+So, to check the bidirectional test of networking try from **mongo1**:
 
-    `mongo --host node1.com --port 27017`
-    `mongo --host node3.com --port 27017`
+    `mongo --host mongo2.alexcomu --port 27017`
+    `mongo --host mongo3.alexcomu --port 27017`
 
-From **node3**:
+From **mongo2**:
 
-    `mongo --host node1.com --port 27017`
-    `mongo --host node2.com --port 27017`
+    `mongo --host mongo1.alexcomu --port 27017`
+    `mongo --host mongo3.alexcomu --port 27017`
+
+From **mongo3**:
+
+    `mongo --host mongo1.alexcomu --port 27017`
+    `mongo --host mongo2.alexcomu --port 27017`
 
 If any connection, in any direction fails, check your networking and firewall configuration and reconfigure your environment to allow these connections.
+
+## Configuration Procedure
+
+The following procedure outlines the steps to deploy a replica set when access control is disabled.
+
+### 1 - Start each member of the replica set with appropriate options
+
+For each member, start a **mongod** and specify the replica set option (**replSet**). If the application connects to more than one replica set, each set should have a dinstict name. In our case we'll use the same replica set name, for instance:
+
+    mongod --replSet "rs0"
+
+We can also specify the replica set name in the configuration file (be careful, YAML syntax does not support indentation, use space!):
+
+    replication:
+       oplogSizeMB: <int>
+       replSetName: <string>
+       secondaryIndexPrefetch: <string>
+       enableMajorityReadConcern: <boolean>
+
+### 2 - Connect a mongo shell to a replica set member
+
+Connect your shell to Mongo:
+
+    mongo --host 192.168.0.1 --port 27017
+
+### 3 - Initiate the replica set
+
+On one and one only member of the replica set, use **rs.initiate()** to initiates a set that consists of the current member and that uses the default replica set configuration.
+
+    rs.initiate()
+
+### 4 - Verify the initial replica set configuration
+
+Use **rs.status** to display the replica set configuration object:
+
+    rs.status()
+
+The replica set configuration object will looks like:
+
+    rs1:PRIMARY> rs.conf()
+        {
+            _id" : "rs1",
+            "version" : 1,
+            "protocolVersion" : NumberLong(1),
+            "members" : [
+                {
+                    "_id" : 0,
+                    "host" : "192.168.0.1:27017",
+                    "arbiterOnly" : false,
+                    "buildIndexes" : true,
+                    "hidden" : false,
+                    "priority" : 1,
+                    "tags" : {
+                        },
+                    "slaveDelay" : NumberLong(0),
+                    "votes" : 1
+                }
+            ]
+        }
+
+### 5 - Add the remaining members to the replica set.
+
+We have to add the remaining members to our replica set using **rs.add()**. You must be connected to the **primary** member to add the others, in our case is **mongo1.alexcomu** instance.
+
+    rs.add("mongo2.alexcomu")
+    rs.add("mongo3.alexcomu")
+
+Check the status to identify the primary in replica set. And we're done! Congrats!
