@@ -136,3 +136,9 @@ We have to add the remaining members to our replica set using **rs.add()**. You 
     rs.add("mongo3.alexcomu")
 
 Check the status to identify the primary in replica set. And we're done! Congrats!
+
+### 5 Enable read-mode.
+
+From a secondary node is possible to enable the read mode using this simple command:
+
+    rs.slaveOk()
