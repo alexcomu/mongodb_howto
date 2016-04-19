@@ -4,6 +4,8 @@ Quick and dirty guide on "how to MongoDB". I'll cover several arguments, check o
 
 ## Available Chapters
 
-> Install & Play
-> Replica Set tutorial
-> Arbiter configuration
+___Install & Play___
+
+___Replica Set tutorial___
+
+__Arbiter configuration__
