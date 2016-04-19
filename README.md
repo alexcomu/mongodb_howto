@@ -8,4 +8,4 @@ ___Install & Play___
 
 ___Replica Set tutorial___
 
-__Arbiter configuration__
+___Arbiter configuration___
