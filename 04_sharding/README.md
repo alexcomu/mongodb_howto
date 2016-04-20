@@ -14,4 +14,6 @@ Vertical scaling adds more CPU and storage resources to increase capacity. This 
 
 Sharding, or **hotizontal scaling**, divides the data set and distributes the data over multiple servers, or **shards**. Each shard is an indipendent database, and collectively, the shards make up a single logical database.
 
-![Sharded Collection](sharded-collection.png)
+<p align="center">
+  <img src="sharded-collection.png" alt="Sharded Collection"/>
+</p>
