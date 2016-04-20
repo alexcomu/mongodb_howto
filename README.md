@@ -4,10 +4,12 @@ Quick and dirty guide on "how to MongoDB". I'll cover several arguments, check o
 
 ## Available Chapters
 
-___Install & Play___
+___01 - Install & Play___
 
-___Replica Set tutorial___
+___02 - Replica Set tutorial___
 
-___Arbiter configuration___
+___03 - Arbiter configuration___
 
-___Sharding___
+___04 - Sharding___
+
+___05 - From Replica Set to Sharding - Tutorial___
