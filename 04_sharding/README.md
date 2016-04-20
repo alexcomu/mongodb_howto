@@ -161,8 +161,12 @@ Only after this operation we can set the shardCollection:
 
 In this case the **user** collection in the **alexcomu** database using the shard key {"emal": 1}. This shard key distributes documents by the value of the email field.
 
-
-
-
-
-a
+    databases:
+    {_id : "alexcomu",  "primary" : "rs1",  "partitioned" : true }
+        alexcomu.user
+            shard key: { "email" : 1 }
+            unique: false
+            balancing: true
+            chunks:
+                rs1	1
+            { "email" : { "$minKey" : 1 } } -->> { "email" : { "$maxKey" : 1 } } on : rs1 Timestamp(1, 0)
