@@ -17,3 +17,20 @@ Sharding, or **hotizontal scaling**, divides the data set and distributes the da
 <p align="center">
   <img src="sharded-collection.png" alt="Sharded Collection"/>
 </p>
+
+Why use sharding:
+
+* Sarding reduces the number of operations each shard handles. Each shard processes fewer operations as the cluster grows. As a result, a cluster can encrease capacity and throughput *horizontally*
+
+* Sharding reduces the amount of data that each server needs to store. Each shard stores less data as the cluster grows.
+
+## Sharding with MongoDB
+
+Shared cluster has the following components:
+* Shards
+* Query routers
+* Config servers
+
+<p align="center">
+  <img src="sharded-cluster-production-architecture.png" alt="Sharded Collection"/>
+</p>
