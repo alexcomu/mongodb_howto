@@ -13,3 +13,9 @@ ___03 - Arbiter configuration___
 ___04 - Sharding___
 
 ___05 - From Replica Set to Sharding - Tutorial___
+
+Chapter 5 is a simple and quick tutorial on how create a distributed infrastructure with multiple replica set and sharding. Here an overview of the infrastructure:
+
+<p align="center">
+  <img src="infrastructure_mongodb_alexcomu.png" alt="Infrastrucure preview"/>
+</p>
