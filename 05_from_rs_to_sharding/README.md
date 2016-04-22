@@ -223,5 +223,24 @@ The result of **db.printShardingStatus()**:
     				rs1	8
     			too many chunks to print, use verbose if you want to force print
 
+To view the active shards:
+
+    mongos> use admin
+        switched to db admin
+    mongos> db.runCommand({listShards:1})
+        {
+        "shards" : [
+            {
+                "_id" : "rs0",
+                "host" : "rs0/mongo1:27017,mongo2:27017,mongo3:27017"
+            },
+            {
+                "_id" : "rs1",
+                "host" : "rs1/mongo10:27017,mongo4:27017,mongo5:27017"
+            }
+        ],
+        "ok" : 1
+        }
+
 
 Run these commands for a second time to demonstrate that chunks are migrating from rs0 to rs1. And we are done! :)
